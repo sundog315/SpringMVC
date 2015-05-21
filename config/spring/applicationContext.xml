@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="  
+    http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-4.1.xsd   
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<!-- 引入jdbc配置文件 -->
+	<context:property-placeholder location="classpath*:/database/jdbc.properties" />
+
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入-->
+	<context:component-scan base-package="com.zhlands.honey">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan> 
+	
+	<!--创建jdbc数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.userName}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1000" />
+		<property name="logAbandoned" value="true" />
+		<property name="validationQuery" value="select 1" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+		<property name="minEvictableIdleTimeMillis" value="18000000" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 创建SqlSessionFactory，同时指定数据源 -->
+	<!-- MyBatis配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="typeAliasesPackage" value="com.zhlands.honey.Entity" />
+		<!-- 显式指定Mapper文件位置 -->
+		<property name="mapperLocations" value="classpath*:/mybatis/*Mapper.xml" />
+	</bean>
+	
+	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zhlands.honey.Dao" />
+		<property name="annotationClass" value="com.zhlands.honey.Dao.MyBatisRepository"/>
+	</bean>
+
+    <!-- 注意：当声明式事务与annotation注解式事务并存时，务必将注解事务配置在声明式事务(tx:advice及aop:config)之后，
+                                       以保证注解事务作用于Service方法(若将注解事务配置在声明事务之前并且未使用order属性，则会导致注解事务失效) -->
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+</beans>  

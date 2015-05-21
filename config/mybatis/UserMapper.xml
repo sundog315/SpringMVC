@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zhlands.honey.Dao.Users">
+
+	<select id="getByMobile" parameterType="String" resultType="User">
+		select fd_id,
+		fd_name, fd_loginname as fd_loginName, fd_email,
+		fd_mobile, fd_password, fd_token, fd_status
+		from tbl_users
+		where fd_mobile=#{fd_mobile}
+	</select>
+	
+	<select id="userLogin" parameterType="com.zhlands.honey.Entity.User" resultType="User">
+		select fd_id,
+		fd_name, fd_loginname as fd_loginName, fd_email,
+		fd_mobile, fd_password, fd_status
+		from sys_users
+		where fd_loginname=#{fd_loginName}
+		  and fd_password=#{fd_password}
+	</select>
+
+	<insert id="save" parameterType="com.zhlands.honey.Entity.User" flushCache="true"
+	  useGeneratedKeys="true" keyProperty="fd_id">
+		insert into tbl_users (fd_name, fd_loginname, fd_email,
+        fd_mobile,fd_password,fd_token,fd_status)
+        values
+        (#{fd_name,jdbcType=VARCHAR}, #{fd_loginName,jdbcType=VARCHAR}, #{fd_email,jdbcType=VARCHAR}, 
+        #{fd_mobile,jdbcType=CHAR}, #{fd_password,jdbcType=CHAR}, #{fd_token,jdbcType=CHAR},
+        #{fd_status,jdbcType=CHAR})
+	</insert>
+
+</mapper> 
