@@ -1,6 +1,7 @@
 package com.zhlands.honey.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,13 +31,18 @@ public class PmForecastService {
     	return pmForecast.selectByPrimaryKey(fdId);
     }
     
-    public List<PmForecast> selectAll()
+    public List<PmForecast> selectAll(Map<String, Integer> pm)
     {
-    	return pmForecast.selectAll();
+    	return pmForecast.selectAll(pm);
     }
     
     public int updateByPrimaryKey(PmForecast record)
     {
     	return pmForecast.updateByPrimaryKey(record);
+    }
+    
+    public int getCount()
+    {
+    	return pmForecast.getCount();
     }
 }
