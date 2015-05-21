@@ -16,14 +16,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             //没有声明需要权限,或者声明不验证权限
             if(authPassport == null || authPassport.validate() == false)
                 return true;
-            else{                
+            else{
+            	String loginName = (String) request.getAttribute("userLoginName");
                 //在这里实现自己的权限验证逻辑
-                if(false)//如果验证成功返回true（这里直接写false来模拟验证失败的处理）
+                if(loginName != null)//如果验证成功返回true（这里直接写false来模拟验证失败的处理）
                     return true;
                 else//如果验证失败
                 {
                     //返回到登录界面
-                    response.sendRedirect("login");
+                	String rootDir = request.getServletContext().getRealPath("/");
+                    response.sendRedirect(rootDir+"login.jsp");
                     return false;
                 }       
             }

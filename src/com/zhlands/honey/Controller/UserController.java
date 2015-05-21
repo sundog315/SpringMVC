@@ -4,15 +4,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.zhlands.honey.Service.UserService;
 import com.zhlands.honey.Entity.User;
 
 @Controller
 @RequestMapping(value = "/user")
+@SessionAttributes("userLoginName")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -44,6 +47,7 @@ public class UserController {
 	@ResponseBody
     public User userLogin(@RequestParam("fd_loginName")String fd_loginName,
     		@RequestParam("fd_password")String fd_password,
+    		Model model,
     		HttpServletRequest request,
     		HttpServletResponse response) throws Exception
     {
@@ -55,6 +59,7 @@ public class UserController {
     	if (user != null)
     	{
     		System.out.println(user);
+    		model.addAttribute("userLoginName", user.getLoginName());
     		return user;
     	}
     	else
