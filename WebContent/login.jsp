@@ -71,7 +71,7 @@ function login(){
                 	  else
                 	  {
                 		  alert(data.name);
-                          document.location = "main.html";
+                          document.location = "main.jsp";
                 	  }
                   }
             });

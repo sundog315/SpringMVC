@@ -18,6 +18,6 @@ public class TestController {
     		HttpServletRequest request,
     		HttpServletResponse response) throws Exception
     		{
-				return "main.jsp";
+				return "redirect:/main.jsp";
     		}
 }
