@@ -45,4 +45,19 @@ public class PmForecastService {
     {
     	return pmForecast.getCount();
     }
+    
+    public void batchExecute(PmForecast[] insert,PmForecast[] update,PmForecast[] delete)
+    {
+    	if (insert!=null)
+    		for (PmForecast x: insert)
+    			insert(x);
+    	
+    	if (update!=null)
+    		for (PmForecast x: update)
+    			updateByPrimaryKey(x);
+    	
+    	if (delete!=null)
+    		for (PmForecast x: delete)
+    			deleteByPrimaryKey(x.getFdId());
+    }
 }

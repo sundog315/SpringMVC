@@ -105,7 +105,52 @@
 		}
 		function accept(){
 			if (endEditing()){
-				$('#dg').datagrid('acceptChanges');
+				if ($('#dg').datagrid('getChanges').length) {
+                    var inserted = $('#dg').datagrid('getChanges', "inserted");
+                    var deleted = $('#dg').datagrid('getChanges', "deleted");
+                    var updated = $('#dg').datagrid('getChanges', "updated");
+                    
+                    var effectRow = new Object();
+                    if (inserted.length) {
+                        effectRow["inserted"] = inserted;
+                    }
+                    if (deleted.length) {
+                        effectRow["deleted"] = deleted;
+                    }
+                    if (updated.length) {
+                        effectRow["updated"] = updated;
+                    }
+                    
+                    $.ajax({            
+                        type:"POST",   //post提交方式默认是get
+                        cache: false,
+                        url:"/forecast/commit.do",
+                        data:JSON.stringify(effectRow),
+                        datatype:"json",
+                        contentType:"application/json;charset=UTF-8",
+                        error:function(request) {      // 设置表单提交出错
+                        	$.messager.alert("提示", "提交错误了！");
+                        	$.messager.alert(html(request));
+                        },
+                        success:function(response) {
+                        	if(rsp.status){
+                                $.messager.alert("提示", "提交成功！");
+                                $('#dg').datagrid('acceptChanges');
+                            }
+                        }
+                    });
+
+                    /*
+                    $.post("/forecast/commit.do", JSON.stringify(effectRow), function(rsp) {
+                        if(rsp.status){
+                            $.messager.alert("提示", "提交成功！");
+                            $('#dg').datagrid('acceptChanges');
+                        }
+                    }, "JSON").error(function() {
+                        $.messager.alert("提示", "提交错误了！");
+                    });
+                    */
+                }
 			}
 		}
 		function reject(){

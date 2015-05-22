@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,5 +44,18 @@ public class PmForecastController {
         
         return result;
     }
+	
+	@AuthPassport
+	@RequestMapping(value = "/commit.do", method= RequestMethod.POST)
+	public void commit(@RequestBody Map<String, PmForecast[]> effectRow,
+			HttpServletRequest request, 
+			HttpServletResponse response) throws Exception
+	{
+		PmForecast[] inserted = effectRow.get("inserted");
+		PmForecast[] updated = effectRow.get("updated");
+		PmForecast[] deleted = effectRow.get("deleted");
+		
+		pmService.batchExecute(inserted, updated, deleted);
+	}
 }
 

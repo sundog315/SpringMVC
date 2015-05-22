@@ -57,7 +57,7 @@ function login(){
             //ajax异步提交  
            $.ajax({            
                   type:"POST",   //post提交方式默认是get
-                  url:"user/login.do", 
+                  url:"user/login.do",
                   data:$("#loginForm").serialize(),   //序列化               
                   error:function(request) {      // 设置表单提交出错                 
                       $("#showMsg").html(request);  //登录错误提示信息
