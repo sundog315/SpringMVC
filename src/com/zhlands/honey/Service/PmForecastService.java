@@ -31,7 +31,7 @@ public class PmForecastService {
     	return pmForecast.selectByPrimaryKey(fdId);
     }
     
-    public List<PmForecast> selectAll(Map<String, Integer> pm)
+    public List<PmForecast> selectAll(Map<String, Object> pm)
     {
     	return pmForecast.selectAll(pm);
     }
@@ -41,9 +41,9 @@ public class PmForecastService {
     	return pmForecast.updateByPrimaryKey(record);
     }
     
-    public int getCount()
+    public int getCount(Map<String, Object> pm)
     {
-    	return pmForecast.getCount();
+    	return pmForecast.getCount(pm);
     }
     
     public void batchExecute(PmForecast[] insert,PmForecast[] update,PmForecast[] delete)

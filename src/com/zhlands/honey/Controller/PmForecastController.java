@@ -30,16 +30,22 @@ public class PmForecastController {
 	@ResponseBody
     public Map<String, Object> getAll(HttpServletRequest request, HttpServletResponse response,  
             @RequestParam(required = false, defaultValue = "1") Integer page, //第几页  
-            @RequestParam(required = false, defaultValue = "10") Integer rows ) throws IOException
+            @RequestParam(required = false, defaultValue = "10") Integer rows,
+            @RequestParam(required = false) String fdCityName,
+            @RequestParam(required = false) String fdType) throws IOException
     {
-    	Map<String, Integer> pm = new HashMap<String, Integer>();
+    	Map<String, Object> pm = new HashMap<String, Object>();
         pm.put("pageSize", rows);
         pm.put("pageIndex", (page-1)*rows);
+        if ((fdCityName != null) && (!fdCityName.equals("")))
+        	pm.put("fdCityName", fdCityName);
+        if ((fdType != null) && (!fdType.equals("")))
+        	pm.put("fdType", fdType);
         
         List<PmForecast> list = pmService.selectAll(pm);
         
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("total", pmService.getCount());
+        result.put("total", pmService.getCount(pm));
         result.put("rows", list);
         
         return result;

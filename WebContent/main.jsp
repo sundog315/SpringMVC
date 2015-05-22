@@ -16,20 +16,24 @@
 	<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
 	<div data-options="region:'center',title:'Center'">
-	<table id="dg" class="easyui-datagrid" title="" style="width:auto;height:auto" fit="true" pagination="true" pageSize="10" pageList="[5,10,15]" 
-	        idField="fdId" 
+	<table id="dg" class="easyui-datagrid" title="" style="width:auto;height:auto" 
+	        fit="true"
+	        pagination="true"
+	        pageSize="20"
+	        pageList="[10, 20, 50]"
+	        idField="fdId"
 			data-options="
 				iconCls: 'icon-edit',
 				singleSelect: true,
-				toolbar: '#tb',
+				toolbar: '#tb,#search',
 				url: '/forecast/getall.do',
 				method: 'post',
 				onClickRow: onClickRow
 			">
 		<thead>
 			<tr>
-			    <th data-options="field:'fdId',width:100">记录时间</th>
-				<th data-options="field:'fdTime',width:100,editor:'textbox'">记录时间</th>
+			    <th field='fdId' width=100>记录时间</th>
+				<th field='fdTime' width=100 editor="{type:'validatebox',options:{required:true}}">记录时间</th>
 				<!-- 
 				<th data-options="field:'fdCityId',width:100,
 						formatter:function(value,row){
@@ -45,15 +49,21 @@
 								required:true
 							}
 						}">Product</th> -->
-				<th data-options="field:'fdCityId',width:80,editor:'textbox'">城市代码</th>
-				<th data-options="field:'fdCityName',width:80,editor:'textbox'">城市名称</th>
-				<th data-options="field:'fdType',width:80,align:'right',editor:'textbox'">数据种类</th>
-				<th data-options="field:'fdLevel',width:50,editor:'numberbox'">等级</th>
-				<th data-options="field:'properity',width:60,align:'center',editor:'textbox'">其他属性</th>
+				<th field='fdCityId' width=80 editor="{type:'validatebox',options:{required:true}}">城市代码</th>
+				<th field='fdCityName' width=80 editor="{type:'validatebox',options:{required:true}}">城市名称</th>
+				<th field='fdType' width=80 align='right' editor="{type:'combobox',options:{valueField:'id',textField:'name',panelHeight:'auto',data:[{id:'pm25',name:'pm25'},{id:'pm10',name:'pm10'}],required:true,editable:false}}">数据种类</th>
+				<th field='fdLevel' width=50 editor="{type:'numberbox',options:{min:1,max:8,precision:0,required:true}}">等级</th>
+				<th field='properity' width=60 align='center' editor="{type:'textbox'}">其他属性</th>
 			</tr>
 		</thead>
 	</table>
- 
+	<div id="search" style="padding:3px">
+		<span>城市名称:</span>
+		<input id="fdCityName" style="line-height:26px;border:1px solid #ccc">
+		<span>数据种类:</span>
+		<input id="fdType" style="line-height:26px;border:1px solid #ccc">
+		<a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
+	</div>
 	<div id="tb" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">添加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
@@ -64,6 +74,13 @@
 	
 	<script type="text/javascript">
 		var editIndex = undefined;
+		
+		function doSearch(){
+			$('#dg').datagrid('load',{
+				fdCityName: $('#fdCityName').val(),
+				fdType: $('#fdType').val()
+			});
+		}
 		
 		function endEditing(){
 			if (editIndex == undefined){return true}
@@ -139,17 +156,6 @@
                             }
                         }
                     });
-
-                    /*
-                    $.post("/forecast/commit.do", JSON.stringify(effectRow), function(rsp) {
-                        if(rsp.status){
-                            $.messager.alert("提示", "提交成功！");
-                            $('#dg').datagrid('acceptChanges');
-                        }
-                    }, "JSON").error(function() {
-                        $.messager.alert("提示", "提交错误了！");
-                    });
-                    */
                 }
 			}
 		}
@@ -157,20 +163,6 @@
 			$('#dg').datagrid('rejectChanges');
 			editIndex = undefined;
 		}
-		/*function getChanges(){
-			var rows = $('#dg').datagrid('getChanges');
-			alert(rows.length+' rows are changed!');
-		}*/
-		
-		//设置分页控件  
-	    var p = $('#dg').datagrid('getPager');
-	    p.pagination({
-	        pageSize: 10,//每页显示的记录条数，默认为10  
-	        pageList: [10, 20, 50],//可以设置每页记录条数的列表  
-	        beforePageText: '第',//页数文本框前显示的汉字  
-	        afterPageText: '页    共 {pages} 页',
-	        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
-	    }); 
 	</script>
 	</div>
 </body>
