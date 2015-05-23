@@ -1,4 +1,4 @@
-package com.zhlands.honey.Entity;
+package com.zhlands.honey.Module;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

@@ -70,7 +70,7 @@ function login(){
                 	  }
                 	  else
                 	  {
-                		  alert(data.name);
+                		  //alert(data.name);
                           document.location = "main.jsp";
                 	  }
                   }

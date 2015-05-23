@@ -18,7 +18,7 @@
                         password="p0o9i8u7">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.zhlands.honey.Entity" targetProject="H:\">
+        <javaModelGenerator targetPackage="com.zhlands.honey.Module" targetProject="H:\">
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 

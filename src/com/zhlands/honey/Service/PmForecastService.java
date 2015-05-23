@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zhlands.honey.Dao.PmForecastMapper;
-import com.zhlands.honey.Entity.PmForecast;
+import com.zhlands.honey.Module.PmForecast;
 
 @Component
 @Transactional(readOnly = false)

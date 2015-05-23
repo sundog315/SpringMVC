@@ -1,7 +1,7 @@
 package com.zhlands.honey.Dao;
 
 import com.zhlands.honey.Dao.MyBatisRepository;
-import com.zhlands.honey.Entity.User;
+import com.zhlands.honey.Module.User;
 
 @MyBatisRepository
 public interface Users {

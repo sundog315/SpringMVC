@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zhlands.honey.Dao.Users;
-import com.zhlands.honey.Entity.User;
+import com.zhlands.honey.Module.User;
 
 @Component
 @Transactional(readOnly = false)

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhlands.honey.Service.PmForecastService;
 import com.zhlands.honey.auth.AuthPassport;
-import com.zhlands.honey.Entity.PmForecast;
+import com.zhlands.honey.Module.PmForecast;
 
 @Controller
 @RequestMapping(value = "/forecast")

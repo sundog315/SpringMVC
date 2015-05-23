@@ -12,7 +12,7 @@
 		where fd_mobile=#{fd_mobile}
 	</select>
 	
-	<select id="userLogin" parameterType="com.zhlands.honey.Entity.User" resultType="User">
+	<select id="userLogin" parameterType="com.zhlands.honey.Module.User" resultType="User">
 		select fd_id,
 		fd_name, fd_loginname as fd_loginName, fd_email,
 		fd_mobile, fd_password, fd_status
@@ -21,7 +21,7 @@
 		  and fd_password=#{fd_password}
 	</select>
 
-	<insert id="save" parameterType="com.zhlands.honey.Entity.User" flushCache="true"
+	<insert id="save" parameterType="com.zhlands.honey.Module.User" flushCache="true"
 	  useGeneratedKeys="true" keyProperty="fd_id">
 		insert into tbl_users (fd_name, fd_loginname, fd_email,
         fd_mobile,fd_password,fd_token,fd_status)

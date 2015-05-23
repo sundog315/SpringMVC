@@ -1,6 +1,6 @@
 package com.zhlands.honey.Dao;
 
-import com.zhlands.honey.Entity.PmForecast;
+import com.zhlands.honey.Module.PmForecast;
 import com.zhlands.honey.Dao.MyBatisRepository;
 
 import java.util.List;
