@@ -19,9 +19,9 @@
 	<div data-options="region:'east',split:true,collapsed:true,title:'east'" style="width:100px;padding:10px;"></div>
 	 -->
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
-	<div data-options="region:'center',title:'Center',fit:'auto'" style="width:100%;height:100%;" >
-		<div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
-			<div title="Home" closable="false"></div>
+	<div id="center" data-options="region:'center',title:'Center'" style="width:100%;height:100%;" >
+		<div id="tt" class="easyui-tabs" data-options="fit:true" style="width:100%;height:100%;">
+			<!-- <div title="Home" closable="false"></div> -->
 		</div>
 	</div>
 	
@@ -45,7 +45,6 @@
 				$('#tt').tabs('add',{
 					title:title,
 					content:content,
-					fit:true,
 					closable:true
 				});
 			}

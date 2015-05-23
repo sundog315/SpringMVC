@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="/js/easyui/jquery.easyui.min.js"></script>
 </head>
 <body class="easyui-layout">
-<div region="center">
+<div region="center" style="width: 100%; height: 100%;">
 	<table id="dg" class="easyui-datagrid" title=""
 	        fit="true"
 	        pagination="true"
@@ -24,8 +24,7 @@
 				toolbar: '#tb,#search',
 				url: '/forecast/getall.do',
 				method: 'post',
-				onClickRow: onClickRow,
-				onLoadSuccess: ChangeIfmHeight
+				onClickRow: onClickRow
 			">
 		<thead>
 			<tr>
@@ -72,14 +71,6 @@
 	<script type="text/javascript">
 		var editIndex = undefined;
 		
-		function ChangeIfmHeight() {
-			if ($(window.parent.document).find("#iframeId")) {
-				var iframeObj = $(window.parent.document).find("#iframeId");
-				var thisheight = $(document).height();
-				iframeObj .height(thisheight);
-				}
-			}
-		
 		function doSearch(){
 			$('#dg').datagrid('load',{
 				fdCityName: $('#fdCityName').val(),
@@ -90,9 +81,6 @@
 		function endEditing(){
 			if (editIndex == undefined){return true}
 			if ($('#dg').datagrid('validateRow', editIndex)){
-				//var ed = $('#dg').datagrid('getEditor', {index:editIndex,field:'fdId'});
-				//var productname = $(ed.target).combobox('getText');
-				//$('#dg').datagrid('getRows')[editIndex]['productname'] = productname;
 				$('#dg').datagrid('endEdit', editIndex);
 				editIndex = undefined;
 				return true;
