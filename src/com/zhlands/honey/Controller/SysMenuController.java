@@ -37,6 +37,7 @@ public class SysMenuController {
         		TreeNode tn = new TreeNode();
         		tn.setId(menu.getFdId());
         		tn.setText(menu.getText());
+        		tn.setUrl(menu.getUrl());
         		List<TreeNode> sub = SetSubTree(list,menu.getFdId());
         		if (!sub.isEmpty())
         			tn.setChildren(sub);
@@ -59,6 +60,7 @@ public class SysMenuController {
 				TreeNode tn = new TreeNode();
 				tn.setId(menu.getFdId());
 				tn.setText(menu.getText());
+				tn.setUrl(menu.getUrl());
 				List<TreeNode> sub = SetSubTree(list,menu.getFdId());
 				if (!sub.isEmpty())
 					tn.setChildren(sub);

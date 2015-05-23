@@ -16,6 +16,7 @@ public class TreeNode implements java.io.Serializable {
     private Map<String, Object> attributes;// 其他参数 
     private List<TreeNode> children;// 子节点 
     private String state = "open";// 是否展开(open,closed)
+    private String url;
   
     /**  
      * @return the id  
@@ -70,7 +71,7 @@ public class TreeNode implements java.io.Serializable {
     public void setState(String state) {  
         this.state = state;  
     }  
-    
+
     /*
     public String getIconCls() {  
         return iconCls;  
@@ -78,5 +79,13 @@ public class TreeNode implements java.io.Serializable {
   
     public void setIconCls(String iconCls) {  
         this.iconCls = iconCls;  
-    } */ 
+    }*/
+    
+    public String getUrl() {  
+        return url;  
+    }  
+  
+    public void setUrl(String url) {  
+        this.url = url;  
+    }
 } 
