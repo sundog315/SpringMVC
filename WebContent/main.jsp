@@ -12,8 +12,12 @@
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">north region</div>
-	<div data-options="region:'west',split:true,title:'West'" style="width:150px;padding:10px;">west content</div>
-	<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
+	<div data-options="region:'west',split:true,title:'控制区'" style="width:150px;padding:10px;">
+		<ul id="treeMenu" class="easyui-tree" data-options="url:'/menu/getall.do',animate:true" ></ul>
+	</div>
+	<!-- 
+	<div data-options="region:'east',split:true,collapsed:true,title:'east'" style="width:100px;padding:10px;"></div>
+	 -->
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
 	<div data-options="region:'center',title:'Center'">
 	<table id="dg" class="easyui-datagrid" title="" style="width:auto;height:auto" 
