@@ -12,6 +12,14 @@
 		where fd_mobile=#{fd_mobile}
 	</select>
 	
+	<select id="getById" parameterType="Integer" resultType="User">
+		select fd_id,
+		fd_name, fd_loginname as fd_loginName, fd_email,
+		fd_mobile, fd_password, fd_token, fd_status
+		from tbl_users
+		where fd_id=#{fd_id}
+	</select>
+	
 	<select id="userLogin" parameterType="com.zhlands.honey.Module.User" resultType="User">
 		select fd_id,
 		fd_name, fd_loginname as fd_loginName, fd_email,

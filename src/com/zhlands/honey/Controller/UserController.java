@@ -26,7 +26,7 @@ public class UserController {
     		@RequestParam("fd_loginname")String fd_loginname,
     		@RequestParam("fd_mobile")String fd_mobile,
     		@RequestParam("fd_password")String fd_password,
-    		HttpServletRequest request)
+    		HttpServletRequest request) throws Exception
     {
     	System.out.println(request);
     	User user = new User();
